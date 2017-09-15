@@ -28,6 +28,7 @@ namespace HearthstoneNHibernate.Mapping
             MapCardSet();
             MapRarity();
             MapWeapon();
+            MapSpell();
 
             return _modelMapper.CompileMappingForAllExplicitlyAddedEntities();
         }
@@ -65,6 +66,23 @@ namespace HearthstoneNHibernate.Mapping
                     collectionMapping.Cascade(Cascade.None);
                     collectionMapping.Key(keyMap => keyMap.Column("AbilityId"));
                 }, map => map.ManyToMany(p => p.Column("CardId")));
+            });
+        }
+
+        private void MapSpell()
+        {
+            _modelMapper.Class<Spell>(e =>
+            {
+                e.Id(p => p.SpellId, p => p.Generator(Generators.GuidComb));
+                e.Property(p => p.Damage);
+                e.Property(p => p.Heal);
+                e.Property(p => p.ToAll);
+                e.ManyToOne(p => p.Card, mapper =>
+                {
+                    mapper.Column("CardId");
+                    mapper.NotNullable(true);
+                    mapper.Cascade(Cascade.All);
+                });
             });
         }
 

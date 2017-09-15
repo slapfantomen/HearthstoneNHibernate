@@ -22,6 +22,12 @@ namespace HearthstoneNHibernate.CardClasses
         public virtual Guid RarityId { get; set; }
         public virtual string CardText { get; set; }
         public virtual Weapon Weapon { get; set; }
+        public virtual Spell Spell { get; set; }
+        public virtual void AddSpell(Spell s)
+        {
+            s.Card = this;
+            Spell = s;
+        }
         public virtual void AddWeapon(Weapon w)
         {
             w.Card = this;

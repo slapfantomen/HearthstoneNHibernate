@@ -1,4 +1,5 @@
-﻿using HearthstoneNHibernate.Domain;
+﻿using HearthstoneNHibernate.CardClasses;
+using HearthstoneNHibernate.Domain;
 using HearthstoneNHibernate.Services;
 using NHibernate.Linq;
 using NHibernate.Tool.hbm2ddl;
@@ -21,6 +22,11 @@ namespace HearthstoneNHibernate
             DeleteDatabase();
             RecreateDatabase();
             log.Debug("Database recreated");
+            Ability ability = new Ability()
+            {
+                AbilityName = "Windfury",
+            };
+            session.Save(ability);
             DbService.CloseSession(session);
             Console.WriteLine("Session closed");
         }
