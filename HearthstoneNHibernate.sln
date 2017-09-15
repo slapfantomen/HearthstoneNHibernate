@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HearthstoneNHibernate", "HearthstoneNHibernate\HearthstoneNHibernate.csproj", "{5F5259DF-3F4E-48FD-B833-2BCCD5275255}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{97E0EBE5-B9FD-47D8-BEC7-934F58B3F125}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{5F5259DF-3F4E-48FD-B833-2BCCD5275255}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F5259DF-3F4E-48FD-B833-2BCCD5275255}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F5259DF-3F4E-48FD-B833-2BCCD5275255}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97E0EBE5-B9FD-47D8-BEC7-934F58B3F125}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97E0EBE5-B9FD-47D8-BEC7-934F58B3F125}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97E0EBE5-B9FD-47D8-BEC7-934F58B3F125}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97E0EBE5-B9FD-47D8-BEC7-934F58B3F125}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

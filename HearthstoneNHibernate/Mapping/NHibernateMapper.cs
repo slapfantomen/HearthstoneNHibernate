@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace HearthstoneNHibernate.Mapping
 {
-    class NHibernateMapper
+    public class NHibernateMapper
     {
         private readonly ModelMapper _modelMapper;
 
@@ -21,15 +21,22 @@ namespace HearthstoneNHibernate.Mapping
 
         public HbmMapping Map()
         {
-            MapPlayer();
-            MapAbility();
-            MapPlayerClass();
-            MapCard();
-            MapCardSet();
             MapRarity();
+            MapPlayerClass();
+            MapPlayer();
+
+            MapCard();
+
+            MapAbility();
+            MapCardSet();
+
+
             MapWeapon();
             MapSpell();
+           
 
+            
+            
             return _modelMapper.CompileMappingForAllExplicitlyAddedEntities();
         }
 
@@ -38,21 +45,7 @@ namespace HearthstoneNHibernate.Mapping
             _modelMapper.Class<Card>(e =>
             {
                 e.Id(p => p.CardId, p => p.Generator(Generators.GuidComb));
-                e.Property(p => p.CardName);
-                e.Property(p => p.CardText);
-                e.Property(p => p.Cost);
-                e.ManyToOne(p => p.PlayerClass, mapper =>
-                {
-                    mapper.Column("PlayerClassId");
-                    mapper.NotNullable(true);
-                    mapper.Cascade(Cascade.All);
-                });
-                e.ManyToOne(p => p.CardSet, mapper =>
-                {
-                    mapper.Column("CardSetId");
-                    mapper.NotNullable(true);
-                    mapper.Cascade(Cascade.All);
-                });
+
                 e.ManyToOne(p => p.Rarity, mapper =>
                 {
                     mapper.Column("RarityId");
@@ -60,12 +53,36 @@ namespace HearthstoneNHibernate.Mapping
                     mapper.Cascade(Cascade.All);
                 });
 
-                e.Set(x => x.Abilities, collectionMapping => 
+                e.Property(p => p.CardName, p => p.Unique(true));
+                e.Property(p => p.CardText);
+                e.Property(p => p.Cost);
+                
+                e.Set(x => x.Abilities, collectionMapping =>
                 {
                     collectionMapping.Table("Abilities");
                     collectionMapping.Cascade(Cascade.None);
                     collectionMapping.Key(keyMap => keyMap.Column("AbilityId"));
                 }, map => map.ManyToMany(p => p.Column("CardId")));
+
+                e.ManyToOne(p => p.CardSet, mapper =>
+                {
+                    mapper.Column("CardSetId");
+                    mapper.NotNullable(true);
+                    mapper.Cascade(Cascade.All);
+                });
+
+
+
+
+
+
+
+                e.ManyToOne(p => p.PlayerClass, mapper =>
+                {
+                    mapper.Column("PlayerClassId");
+                    mapper.NotNullable(true);
+                    mapper.Cascade(Cascade.All);
+                });
             });
         }
 
@@ -102,14 +119,7 @@ namespace HearthstoneNHibernate.Mapping
             });
         }
 
-        private void MapPlayerClass()
-        {
-            _modelMapper.Class<PlayerClass>(e =>
-            {
-                e.Id(p => p.PlayerClassId, p => p.Generator(Generators.GuidComb));
-                e.Property(p => p.ClassName);
-            });
-        }
+
         
         private void MapCardSet()
         {
@@ -117,15 +127,40 @@ namespace HearthstoneNHibernate.Mapping
             {
                 e.Id(p => p.CardSetId, p => p.Generator(Generators.GuidComb));
                 e.Property(p => p.CardSetName);
+                //e.Set(p => p.Cards, p =>
+                //{
+                //    p.Inverse(true);
+                //    p.Cascade(Cascade.All);
+                //    p.Key(k => k.Column(col => col.Name("CardId")));
+                //}, p => p.OneToMany());
             });
         }
-
+        private void MapPlayerClass()
+        {
+            _modelMapper.Class<PlayerClass>(e =>
+            {
+                e.Id(p => p.PlayerClassIdX, p => p.Generator(Generators.GuidComb));
+                e.Property(p => p.ClassName);
+                //e.Set(p => p.Cards, p =>
+                //{
+                //    p.Inverse(true);
+                //    p.Cascade(Cascade.All);
+                //    p.Key(k => k.Column(col => col.Name("CardId")));
+                //}, p => p.OneToMany());
+            });
+        }
         private void MapRarity()
         {
             _modelMapper.Class<Rarity>(e =>
             {
                 e.Id(p => p.RarityId, p => p.Generator(Generators.GuidComb));
                 e.Property(p => p.RarityName);
+                //e.Set(p => p.Cards, p =>
+                //{
+                //    p.Inverse(true);
+                //    p.Cascade(Cascade.All);
+                //    p.Key(k => k.Column(col => col.Name("CardId")));
+                //}, p => p.OneToMany());
             });
         }
 
@@ -135,13 +170,13 @@ namespace HearthstoneNHibernate.Mapping
             {
                 e.Id(p => p.AbilityId, p => p.Generator(Generators.GuidComb));
                 e.Property(p => p.AbilityName);
-                e.Set(x => x.Cards, collectionMapping => 
-                {
-                    collectionMapping.Inverse(true);
-                    collectionMapping.Table("Abilities");
-                    collectionMapping.Cascade(Cascade.None);
-                    collectionMapping.Key(keymap => keymap.Column("CardId"));
-                }, map => map.ManyToMany(p => p.Column("AbilityId")));
+                //e.Set(x => x.Cards, collectionMapping =>
+                //{
+                //    collectionMapping.Inverse(true);
+                //    collectionMapping.Table("Abilities");
+                //    collectionMapping.Cascade(Cascade.None);
+                //    collectionMapping.Key(keymap => keymap.Column("CardId"));
+                //}, map => map.ManyToMany(p => p.Column("AbilityId")));
             });
         }
 

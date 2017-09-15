@@ -21,12 +21,47 @@ namespace HearthstoneNHibernate
             Console.WriteLine("Session opened");
             DeleteDatabase();
             RecreateDatabase();
-            log.Debug("Database recreated");
-            Ability ability = new Ability()
+
+            var c = new Card()
             {
-                AbilityName = "Windfury",
+                CardName = "Patches",
+                Cost = 1,
+                CardText = "Texttext",
+                Rarity = new Rarity()
+                {
+                    RarityName = "Legendary"
+                },
+                CardSet = new CardSet
+                {
+                    CardSetName = "Classic"
+                },
+                PlayerClass = new PlayerClass
+                {
+                    ClassName = "Murloc"
+                }
             };
-            session.Save(ability);
+
+
+            //pc.AddCard(c);
+            //r.AddCard(c);
+            //cs.AddCard(c);
+
+
+            session.Save(c);
+            session.Flush();
+            //session.Save(r);
+            //session.Flush();
+            //session.Save(cs);
+            //session.Flush();
+            //session.Save(c);
+            //session.Flush();
+            //session.Save(c);
+
+            //Ability ability = new Ability()
+            //{
+            //    AbilityName = "Windfury",
+            //};
+
             DbService.CloseSession(session);
             Console.WriteLine("Session closed");
         }

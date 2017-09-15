@@ -54,7 +54,9 @@
     <Compile Include="CardClasses\Ability.cs" />
     <Compile Include="CardClasses\Card.cs" />
     <Compile Include="CardClasses\CardSet.cs" />
+    <Compile Include="CardClasses\Minion.cs" />
     <Compile Include="CardClasses\PlayerClass.cs" />
+    <Compile Include="CardClasses\Race.cs" />
     <Compile Include="CardClasses\Rarity.cs" />
     <Compile Include="CardClasses\Spell.cs" />
     <Compile Include="CardClasses\Weapon.cs" />

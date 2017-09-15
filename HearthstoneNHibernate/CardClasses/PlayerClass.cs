@@ -8,14 +8,22 @@ namespace HearthstoneNHibernate.CardClasses
 {
     public class PlayerClass
     {
-        public virtual Guid PlayerClassId { get; set; }
+        //public PlayerClass()
+        //{
+        //    Cards = new List<Card>();
+        //}
+        public virtual Guid PlayerClassIdX { get; set; }
         public virtual string ClassName { get; set; }
-        public virtual Card Card { get; set;  }
+        //public virtual ICollection<Card> Cards { get; set; }
 
-        public virtual void AddCard(Card c)
-        {
-            Card = c;
-            c.PlayerClass = this;
-        }
+        //public virtual void AddCard(Card c)
+        //{
+        //    c.PlayerClass = this;
+        //    Cards.Add(c);
+        //}
+        //public virtual void AddCards(List<Card> cards)
+        //{
+        //    cards.ForEach(c => AddCard(c));
+        //}
     }
 }
